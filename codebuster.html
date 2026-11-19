@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Squid Game | The Last Survivor</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@400;600;700&display=swap');
+
+:root {
+    --red: #ff174f;
+    --pink: #ff477e;
+    --green: #00ff9d;
+    --dark: #080910;
+    --white: #f7f4fa;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: var(--dark);
+    color: white;
+    font-family: 'Rajdhani', sans-serif;
+    overflow-x: hidden;
+}
+
+.scene {
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    background:
+        radial-gradient(ellipse at 50% 35%, #572038 0%, transparent 42%),
+        linear-gradient(180deg, #090b19 0%, #190d20 55%, #080910 100%);
+}
+
+/* BACKGROUND */
+
+.sky {
+    position: absolute;
+    inset: 0;
+    z-index: -3;
+    overflow: hidden;
+}
+
+.stars {
+    position: absolute;
+    inset: -50px;
+    background-image:
+        radial-gradient(white 1px, transparent 1.5px),
+        radial-gradient(#ff668e 1px, transparent 1.5px);
+    background-size: 55px 55px, 93px 93px;
+    background-position: 0 0, 30px 20px;
+    animation: starMove 40s linear infinite;
+    opacity: .65;
+}
+
+@keyframes starMove {
+    to { transform: translateY(100px); }
+}
+
+.moon {
+    position: absolute;
+    width: clamp(160px, 24vw, 290px);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    top: 9%;
+    left: 50%;
+    transform: translateX(-50%);
+    background:
+        radial-gradient(circle at 30% 30%, #fff1e8, #ff9b9f 50%, #e63c70 100%);
+    box-shadow:
+        0 0 35px #ff466a,
+        0 0 100px #ff174f99,
+        0 0 180px #ff174f44;
+    animation: moonPulse 5s infinite alternate;
+}
+
+@keyframes moonPulse {
+    to {
+        box-shadow:
+        0 0 55px #ff466a,
+        0 0 140px #ff174f99,
+        0 0 230px #ff174f55;
+    }
+}
+
+.moon::after {
+    content: "";
+    position: absolute;
+    inset: 10%;
+    border-radius: 50%;
+    background: radial-gradient(circle at 70% 65%, #a42a4b33, transparent 40%);
+}
+
+/* TOP HUD */
+
+.topbar {
+    position: relative;
+    z-index: 10;
+    padding: 24px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-family: Orbitron, sans-serif;
+    font-weight: 900;
+    letter-spacing: 3px;
+    font-size: 15px;
+}
+
+.logo span {
+    color: var(--red);
+}
+
+.live {
+    font-family: Orbitron, sans-serif;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--green);
+    display: flex;
+    gap: 9px;
+    align-items: center;
+}
+
+.live-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--green);
+    border-radius: 50%;
+    box-shadow: 0 0 12px var(--green);
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    50% { opacity: .2; }
+}
+
+/* FLOATING SYMBOLS */
+
+.symbol {
+    position: absolute;
+    color: var(--pink);
+    font-family: Orbitron, sans-serif;
+    text-shadow: 0 0 15px var(--red), 0 0 35px var(--red);
+    opacity: .65;
+    animation: float 5s ease-in-out infinite;
+}
+
+.s1 {
+    left: 9%;
+    top: 24%;
+    font-size: 60px;
+}
+
+.s2 {
+    right: 12%;
+    top: 30%;
+    font-size: 55px;
+    animation-delay: 1s;
+}
+
+.s3 {
+    right: 22%;
+    top: 65%;
+    font-size: 65px;
+    animation-delay: 2s;
+}
+
+.s4 {
+    left: 20%;
+    top: 65%;
+    font-size: 45px;
+    animation-delay: 3s;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0); }
+    50% { transform: translateY(-25px) rotate(12deg); }
+}
+
+/* MAIN TITLE */
+
+.main-content {
+    position: relative;
+    z-index: 5;
+    text-align: center;
+    padding: 55px 15px 0;
+}
+
+.eyebrow {
+    font-family: Orbitron, sans-serif;
+    letter-spacing: 7px;
+    font-size: 11px;
+    color: var(--pink);
+    animation: fadeIn 2s ease;
+}
+
+h1 {
+    font-family: Orbitron, sans-serif;
+    font-size: clamp(38px, 8vw, 90px);
+    font-weight: 900;
+    letter-spacing: clamp(3px, 1vw, 12px);
+    margin: 16px 0;
+    background: linear-gradient(180deg, #fff, #ff8aa8 50%, #ff174f);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    filter: drop-shadow(0 0 22px #ff174f77);
+    animation: titleGlow 3s infinite alternate;
+}
+
+@keyframes titleGlow {
+    to { filter: drop-shadow(0 0 40px #ff174f); }
+}
+
+.tagline {
+    font-family: Orbitron, sans-serif;
+    font-size: clamp(9px, 1.5vw, 13px);
+    letter-spacing: 5px;
+    color: #c9b9c7;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* GAME ARENA */
+
+.arena {
+    position: relative;
+    width: 100%;
+    height: 390px;
+    margin-top: 5px;
+    perspective: 650px;
+}
+
+.ground {
+    position: absolute;
+    width: 150%;
+    height: 420px;
+    left: -25%;
+    top: 40px;
+    transform: rotateX(58deg);
+    transform-origin: top;
+    background:
+        linear-gradient(90deg, transparent 49.7%, #ff426b44 50%, transparent 50.3%),
+        repeating-linear-gradient(90deg, transparent 0 99px, #ff426b25 100px 102px),
+        repeating-linear-gradient(0deg, #ffffff09 0 2px, transparent 2px 70px),
+        linear-gradient(#38152e, #080910);
+    border-top: 2px solid #ff426b99;
+    box-shadow: 0 -10px 50px #ff174f44;
+}
+
+.ground::before {
+    content: "456";
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: Orbitron;
+    font-size: 100px;
+    color: #ffffff0c;
+}
+
+/* PLAYER */
+
+.player {
+    position: absolute;
+    left: 50%;
+    bottom: 30px;
+    transform: translateX(-50%);
+    z-index: 4;
+    width: 90px;
+    height: 180px;
+    transition: .5s;
+    animation: playerIdle 3s infinite ease-in-out;
+}
+
+@keyframes playerIdle {
+    50% { transform: translateX(-50%) translateY(-5px); }
+}
+
+.player-head {
+    position: absolute;
+    top: 0;
+    left: 25px;
+    width: 42px;
+    height: 43px;
+    background: linear-gradient(135deg, #ffdbb9, #b77b65);
+    border-radius: 50%;
+    box-shadow: 0 0 15px #ffbd9c55;
+}
+
+.player-body {
+    position: absolute;
+    top: 45px;
+    left: 5px;
+    width: 82px;
+    height: 95px;
+    border-radius: 12px 12px 5px 5px;
+    background: linear-gradient(100deg, #08734e, #13c58a, #075d45);
+    box-shadow: 0 0 25px #00ff9d33;
+    border: 1px solid #00ff9d77;
+}
+
+.player-body::after {
+    content: "456";
+    position: absolute;
+    top: 28px;
+    width: 100%;
+    text-align: center;
+    font-family: Orbitron;
+    font-size: 19px;
+    color: white;
+}
+
+.leg {
+    position: absolute;
+    top: 135px;
+    width: 25px;
+    height: 43px;
+    background: #161c31;
+    border-radius: 0 0 7px 7px;
+}
+
+.leg.left { left: 18px; }
+.leg.right { right: 18px; }
+
+/* DOLL */
+
+.doll {
+    position: absolute;
+    left: 50%;
+    top: 5px;
+    transform: translateX(-50%);
+    width: 125px;
+    height: 210px;
+    z-index: 3;
+}
+
+.doll-hair {
+    position: absolute;
+    top: 0;
+    left: 30px;
+    width: 65px;
+    height: 30px;
+    background: #20121a;
+    border-radius: 50% 50% 10% 10%;
+}
+
+.doll-head {
+    position: absolute;
+    top: 15px;
+    left: 25px;
+    width: 75px;
+    height: 85px;
+    background: linear-gradient(120deg, #ffe6c8, #eab48d);
+    border-radius: 45% 45% 40% 40%;
+    box-shadow: 0 0 25px #ff174f66;
+}
+
+.doll-eye {
+    position: absolute;
+    top: 37px;
+    width: 9px;
+    height: 11px;
+    background: #20131c;
+    border-radius: 50%;
+    z-index: 2;
+}
+
+.doll-eye.left { left: 45px; }
+.doll-eye.right { right: 45px; }
+
+.doll-mouth {
+    position: absolute;
+    top: 67px;
+    left: 55px;
+    width: 15px;
+    height: 3px;
+    background: #a32e3c;
+    z-index: 2;
+}
+
+.doll-dress {
+    position: absolute;
+    top: 95px;
+    left: 12px;
+    width: 100px;
+    height: 105px;
+    background: linear-gradient(100deg, #ffc94c, #ff9f25);
+    clip-path: polygon(20% 0, 80% 0, 100% 100%, 0 100%);
+    box-shadow: 0 0 25px #ffac3044;
+}
+
+.doll-neck {
+    position: absolute;
+    top: 88px;
+    left: 53px;
+    width: 20px;
+    height: 20px;
+    background: #e8b18d;
+}
+
+/* RED LIGHT BEAM */
+
+.beam {
+    position: absolute;
+    z-index: 2;
+    top: 100px;
+    left: 50%;
+    width: 3px;
+    height: 230px;
+    background: #ff174f;
+    box-shadow: 0 0 12px #ff174f, 0 0 40px #ff174f;
+    transform: rotate(35deg);
+    transform-origin: top;
+    opacity: .2;
+    animation: scan 4s infinite alternate ease-in-out;
+}
+
+@keyframes scan {
+    from { transform: rotate(-35deg); opacity: .1; }
+    to { transform: rotate(35deg); opacity: .8; }
+}
+
+/* CONTROL PANEL */
+
+.panel {
+    position: relative;
+    z-index: 8;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 18px;
+    padding: 0 15px 30px;
+}
+
+.status-card {
+    min-width: 125px;
+    padding: 12px 20px;
+    background: #ffffff08;
+    border: 1px solid #ffffff25;
+    backdrop-filter: blur(10px);
+    text-align: center;
+    border-radius: 8px;
+}
+
+.status-card small {
+    display: block;
+    color: #b5a7b5;
+    letter-spacing: 2px;
+    font-size: 10px;
+}
+
+.status-card strong {
+    display: block;
+    font-family: Orbitron;
+    font-size: 19px;
+    margin-top: 6px;
+}
+
+#lightStatus {
+    color: var(--red);
+    text-shadow: 0 0 12px var(--red);
+}
+
+/* BUTTONS */
+
+.buttons {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    padding-bottom: 45px;
+}
+
+button {
+    border: none;
+    padding: 15px 32px;
+    margin: 7px;
+    font-family: Orbitron;
+    font-size: 11px;
+    letter-spacing: 2px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: .3s;
+    border-radius: 3px;
+}
+
+.start-btn {
+    color: white;
+    background: linear-gradient(100deg, #c6003e, #ff174f);
+    box-shadow: 0 0 25px #ff174f66;
+}
+
+.start-btn:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 0 40px #ff174f;
+}
+
+.pause-btn {
+    color: var(--green);
+    background: transparent;
+    border: 1px solid var(--green);
+}
+
+.pause-btn:hover {
+    background: #00ff9d22;
+}
+
+/* FOOTER */
+
+.footer {
+    position: relative;
+    z-index: 10;
+    padding: 15px;
+    text-align: center;
+    border-top: 1px solid #ffffff15;
+    color: #8f8293;
+    font-family: Orbitron;
+    font-size: 9px;
+    letter-spacing: 3px;
+}
+
+/* GAME OVERLAY */
+
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: #05040beF;
+    z-index: 50;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+}
+
+.overlay.show {
+    display: flex;
+}
+
+.overlay-box {
+    border: 1px solid var(--red);
+    padding: 45px 35px;
+    max-width: 440px;
+    width: 100%;
+    background: linear-gradient(145deg, #24101f, #090910);
+    box-shadow: 0 0 70px #ff174f33;
+}
+
+.overlay h2 {
+    font-family: Orbitron;
+    font-size: 30px;
+    color: var(--red);
+    margin-bottom: 15px;
+}
+
+.overlay p {
+    color: #d6cbd6;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+}
+
+.overlay button {
+    background: var(--red);
+    color: white;
+}
+
+/* MOBILE */
+
+@media(max-width:600px) {
+    .topbar {
+        padding: 20px 15px;
+    }
+
+    .logo { font-size: 10px; }
+    .live { font-size: 9px; }
+
+    .main-content {
+        padding-top: 75px;
+    }
+
+    .arena {
+        height: 340px;
+        margin-top: 30px;
+    }
+
+    .doll {
+        transform: translateX(-50%) scale(.8);
+        transform-origin: top center;
+    }
+
+    .player {
+        transform: translateX(-50%) scale(.85);
+        transform-origin: bottom center;
+    }
+
+    .s1 { left: 3%; font-size: 35px; }
+    .s2 { right: 4%; font-size: 35px; }
+    .s3 { right: 5%; font-size: 40px; }
+
+    .status-card {
+        min-width: 95px;
+        padding: 10px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="scene">
+
+    <div class="sky">
+        <div class="stars"></div>
+    </div>
+
+    <div class="moon"></div>
+
+    <!-- HEADER -->
+
+    <header class="topbar">
+        <div class="logo">
+            SQUID<span>GAME</span> / 456
+        </div>
+
+        <div class="live">
+            <span class="live-dot"></span>
+            SYSTEM ACTIVE
+        </div>
+    </header>
+
+    <!-- FLOATING SYMBOLS -->
+
+    <div class="symbol s1">○</div>
+    <div class="symbol s2">△</div>
+    <div class="symbol s3">□</div>
+    <div class="symbol s4">○</div>
+
+    <!-- MAIN TITLE -->
+
+    <main class="main-content">
+
+        <div class="eyebrow">
+            THE WORLD IS NOT WHAT IT SEEMS
+        </div>
+
+        <h1>THE LAST<br>SURVIVOR</h1>
+
+        <div class="tagline">
+            PLAYER 456 · THE FINAL CHALLENGE
+        </div>
+
+    </main>
+
+    <!-- ARENA -->
+
+    <section class="arena">
+
+        <div class="ground"></div>
+
+        <div class="beam"></div>
+
+        <!-- DOLL -->
+
+        <div class="doll">
+
+            <div class="doll-hair"></div>
+            <div class="doll-head"></div>
+            <div class="doll-eye left"></div>
+            <div class="doll-eye right"></div>
+            <div class="doll-mouth"></div>
+            <div class="doll-neck"></div>
+            <div class="doll-dress"></div>
+
+        </div>
+
+        <!-- PLAYER -->
+
+        <div class="player" id="player">
+
+            <div class="player-head"></div>
+
+            <div class="player-body"></div>
+
+            <div class="leg left"></div>
+            <div class="leg right"></div>
+
+        </div>
+
+    </section>
+
+    <!-- STATUS PANEL -->
+
+    <section class="panel">
+
+        <div class="status-card">
+            <small>PLAYER</small>
+            <strong>456</strong>
+        </div>
+
+        <div class="status-card">
+            <small>GAME STATUS</small>
+            <strong id="gameStatus">READY</strong>
+        </div>
+
+        <div class="status-card">
+            <small>LIGHT</small>
+            <strong id="lightStatus">RED</strong>
+        </div>
+
+        <div class="status-card">
+            <small>TIME LEFT</small>
+            <strong id="timer">60</strong>
+        </div>
+
+    </section>
+
+    <!-- GAME CONTROLS -->
+
+    <section class="buttons">
+
+        <button class="start-btn" onclick="startGame()">
+            ▶️ START THE GAME
+        </button>
+
+        <button class="pause-btn" onclick="togglePause()">
+            II PAUSE
+        </button>
+
+        <div style="color:#a89ba9;font-size:12px;letter-spacing:2px;margin-top:12px">
+            THE DOLL IS WATCHING. MOVE AT YOUR OWN RISK.
+        </div>
+
+    </section>
+
+    <!-- FOOTER -->
+
+    <footer class="footer">
+        ○ &nbsp; △ &nbsp; □
+        &nbsp; · &nbsp;
+        THERE IS NO TURNING BACK
+        &nbsp; · &nbsp;
+        456
+    </footer>
+
+</div>
+
+<!-- RESULT SCREEN -->
+
+<div class="overlay" id="overlay">
+
+    <div class="overlay-box">
+
+        <h2 id="resultTitle">GAME OVER</h2>
+
+        <p id="resultText">
+            YOUR GAME HAS ENDED.
+        </p>
+
+        <button onclick="restartGame()">
+            PLAY AGAIN
+        </button>
+
+    </div>
+
+</div>
+
+<script>
+
+/* GAME VARIABLES */
+
+let timeLeft = 60;
+let running = false;
+let paused = false;
+let light = "RED";
+let gameInterval;
+let lightInterval;
+let playerPosition = 0;
+
+/* DOM ELEMENTS */
+
+const timer = document.getElementById("timer");
+const lightStatus = document.getElementById("lightStatus");
+const gameStatus = document.getElementById("gameStatus");
+const player = document.getElementById("player");
+const overlay = document.getElementById("overlay");
+
+/* START GAME */
+
+function startGame() {
+
+    if (running) return;
+
+    running = true;
+    paused = false;
+    timeLeft = 60;
+    playerPosition = 0;
+
+    overlay.classList.remove("show");
+
+    gameStatus.innerText = "PLAYING";
+
+    player.style.left = "50%";
+
+    changeLight();
+
+    gameInterval = setInterval(() => {
+
+        if (paused || !running) return;
+
+        timeLeft--;
+
+        timer.innerText = timeLeft;
+
+        if (timeLeft <= 0) {
+            endGame(true);
+        }
+
+    }, 1000);
+
+    lightInterval = setInterval(() => {
+
+        if (paused || !running) return;
+
+        changeLight();
+
+    }, 4500);
+
+}
+
+/* CHANGE LIGHT */
+
+function changeLight() {
+
+    if (!running) return;
+
+    light = Math.random() > 0.5 ? "GREEN" : "RED";
+
+    lightStatus.innerText = light;
+
+    if (light === "GREEN") {
+
+        lightStatus.style.color = "#00ff9d";
+        lightStatus.style.textShadow = "0 0 15px #00ff9d";
+
+    } else {
+
+        lightStatus.style.color = "#ff174f";
+        lightStatus.style.textShadow = "0 0 15px #ff174f";
+
+    }
+
+}
+
+/* MOVE PLAYER */
+
+function movePlayer() {
+
+    if (!running || paused) return;
+
+    if (light === "RED") {
+
+        endGame(false);
+
+        return;
+
+    }
+
+    playerPosition += 12;
+
+    player.style.left = (50 + playerPosition) + "%";
+
+    if (playerPosition >= 35) {
+
+        endGame(true);
+
+    }
+
+}
+
+/* PAUSE */
+
+function togglePause() {
+
+    if (!running) return;
+
+    paused = !paused;
+
+    gameStatus.innerText = paused ? "PAUSED" : "PLAYING";
+
+}
+
+/* END GAME */
+
+function endGame(won) {
+
+    running = false;
+
+    clearInterval(gameInterval);
+    clearInterval(lightInterval);
+
+    gameStatus.innerText = won ? "WINNER" : "ELIMINATED";
+
+    document.getElementById("resultTitle").innerText =
+        won ? "YOU SURVIVED!" : "ELIMINATED!";
+
+    document.getElementById("resultText").innerText =
+        won
+        ? "PLAYER 456 HAS SURVIVED THE FINAL GAME."
+        : "THE DOLL CAUGHT YOU MOVING DURING RED LIGHT.";
+
+    overlay.classList.add("show");
+
+}
+
+/* RESTART */
+
+function restartGame() {
+
+    timeLeft = 60;
+    timer.innerText = "60";
+
+    playerPosition = 0;
+
+    player.style.left = "50%";
+
+    overlay.classList.remove("show");
+
+    gameStatus.innerText = "READY";
+
+    light = "RED";
+
+    lightStatus.innerText = "RED";
+    lightStatus.style.color = "#ff174f";
+
+    startGame();
+
+}
+
+/* KEYBOARD CONTROLS */
+
+document.addEventListener("keydown", function(event) {
+
+    if (event.code === "Space" || event.code === "ArrowRight") {
+
+        event.preventDefault();
+
+        movePlayer();
+
+    }
+
+});
+
+/* CLICK PLAYER TO MOVE */
+
+player.addEventListener("click", movePlayer);
+
+/* TOUCH SUPPORT */
+
+player.addEventListener("touchstart", function(event) {
+
+    event.preventDefault();
+
+    movePlayer();
+
+}, {passive:false});
+
+/* PARTICLES */
+
+const scene = document.querySelector(".scene");
+
+for (let i = 0; i < 55; i++) {
+
+    const particle = document.createElement("div");
+
+    const size = Math.random() * 3 + 1;
+
+    particle.style.position = "absolute";
+    particle.style.width = size + "px";
+    particle.style.height = size + "px";
+    particle.style.borderRadius = "50%";
+    particle.style.background =
+        Math.random() > 0.5 ? "#ff477e" : "#ffffff";
+
+    particle.style.left = Math.random() * 100 + "%";
+    particle.style.top = Math.random() * 100 + "%";
+
+    particle.style.boxShadow = "0 0 10px currentColor";
+    particle.style.opacity = Math.random() * .7;
+
+    particle.style.animation =
+        particleFloat ${4 + Math.random() * 8}s infinite alternate ease-in-out;
+
+    scene.appendChild(particle);
+
+}
+
+const particleStyle = document.createElement("style");
+
+particleStyle.textContent = `
+@keyframes particleFloat {
+    from { transform: translateY(0) translateX(0); }
+    to { transform: translateY(-65px) translateX(25px); }
+}`;
+
+document.head.appendChild(particleStyle);
+
+</script>
+
+</body>
+</html>
